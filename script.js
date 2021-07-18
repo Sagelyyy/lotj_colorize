@@ -1,9 +1,57 @@
-let matches;
+const myInput = document.getElementById("input");
+const myButton = document.getElementById("submit");
+const colorTextOutput = document.getElementById("pOut");
+const testColor = document.getElementById("test");
+const myRadio = document.getElementById('preamble')
+const autoUpdate = document.getElementById('autoUp')
+const myTitle = document.getElementById('lotjTitle')
+myInput.addEventListener("keyup", inEcho);
+myButton.addEventListener("click", inReplace);
+myRadio.addEventListener("click", inReplace);
+autoUpdate.addEventListener("click", autoUpdateColor);
 
-let color_range = Array.from(Array(257), (_,x) => x);
-for(i = 0; i < color_range.length; i++){
-  color_range[i] = "&" + color_range[i]
+let intervalId;
+
+function autoUpdateColor(){
+  clearInterval(intervalId)
+  if(autoUpdate.checked){
+    intervalId = setInterval(inReplace, 20) //--kind of buggy, needs work
 }
+}
+
+const preamble =
+  "&YB&Oro&zad&Wc&wa&zst&Oin&Yg N&Oe&zt&ww&zo&Or&Yk [&wCorellia&R(&zPrivate Signal&R)&Y]&z:&w";
+
+
+function inReplace() {
+  let randR = Math.floor(Math.random() * 257)
+  let randG = Math.floor(Math.random() * 257)
+  let randB = Math.floor(Math.random() * 257)
+  let randTitle = `rgb(${randR}, ${randG}, ${randB})`
+  myTitle.style.color = randTitle
+
+  
+  Object.entries(colors).forEach(([k, v]) => {
+    let colorRegex = `${[k]}`;
+    let regex = new RegExp(colorRegex, "g");
+    colorTextOutput.innerHTML = colorTextOutput.innerHTML.replace(
+      regex,
+      `<span style="color:${v}"</span>`
+    );
+  }); 
+}
+
+function inEcho(e) {
+  if(myRadio.checked){
+  colorTextOutput.textContent = preamble + this.value;
+  }else{
+    colorTextOutput.textContent = this.value;
+  }
+}
+
+
+
+
 
 let colors = {};
 colors["&amp;r"] = "rgb(128, 0, 0)";
@@ -278,55 +326,3 @@ colors["&amp;4"] = "#000080";
 colors["&amp;3"] = "#808000";
 colors["&amp;2"] = "#008000";
 colors["&amp;1"] = "#800000";
-
-const myInput = document.getElementById("input");
-const myButton = document.getElementById("submit");
-const colorTextOutput = document.getElementById("pOut");
-const testColor = document.getElementById("test");
-const myRadio = document.getElementById('preamble')
-const autoUpdate = document.getElementById('autoUp')
-myInput.addEventListener("keyup", inEcho);
-myButton.addEventListener("click", inReplace);
-myRadio.addEventListener("click", inReplace);
-autoUpdate.addEventListener("click", autoUpdateColor);
-
-function autoUpdateColor(){
-  let intervalId;
-  if(autoUpdate.checked){
-    intervalId = setInterval(inReplace, 20) //--kind of buggy, needs work
-  }else{
-    clearInterval(intervalId)
-  }
-}
-
-const preamble =
-  "&YB&Oro&zad&Wc&wa&zst&Oin&Yg N&Oe&zt&ww&zo&Or&Yk [&wCorellia&R(&zPrivate Signal&R)&Y]&z:&w";
-
-function colorTest(){
-  let testStr = "This is a color: "
-  Object.entries(colors).forEach(([k, v]) => {
-    for(i = 0; i < k.length; i++){
-      testColor.innerHTML += testStr + `<span style="color:${v}"</span>` + v + " \n"
-    }
-  });
-}
-
-function inReplace() {
-  
-  Object.entries(colors).forEach(([k, v]) => {
-    let colorRegex = `${[k]}`;
-    let regex = new RegExp(colorRegex, "g");
-    colorTextOutput.innerHTML = colorTextOutput.innerHTML.replace(
-      regex,
-      `<span style="color:${v}"</span>`
-    );
-  }); 
-}
-
-function inEcho(e) {
-  if(myRadio.checked){
-  colorTextOutput.textContent = preamble + this.value;
-  }else{
-    colorTextOutput.textContent = this.value;
-  }
-}
