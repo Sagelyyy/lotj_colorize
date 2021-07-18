@@ -283,16 +283,15 @@ const myInput = document.getElementById("input");
 const myButton = document.getElementById("submit");
 const colorTextOutput = document.getElementById("pOut");
 const testColor = document.getElementById("test");
+const myRadio = document.getElementById('preamble')
 myInput.addEventListener("keyup", inEcho);
 myButton.addEventListener("click", inReplace);
+myRadio.addEventListener("click", inReplace);
+
+//setInterval(inReplace, 20) --kind of buggy, needs work
 
 const preamble =
   "&YB&Oro&zad&Wc&wa&zst&Oin&Yg N&Oe&zt&ww&zo&Or&Yk [&wCorellia&R(&zPrivate Signal&R)&Y]&z:&w";
-
-// Object.entries(colors).forEach(([k,v]) => {
-//     console.log("The key: ", k)
-//     console.log("The value: ", v)
-// })
 
 function colorTest(){
   let testStr = "This is a color: "
@@ -304,6 +303,7 @@ function colorTest(){
 }
 
 function inReplace() {
+  
   Object.entries(colors).forEach(([k, v]) => {
     let colorRegex = `${[k]}`;
     let regex = new RegExp(colorRegex, "g");
@@ -315,5 +315,9 @@ function inReplace() {
 }
 
 function inEcho(e) {
-  colorTextOutput.textContent = this.value;
+  if(myRadio.checked){
+  colorTextOutput.textContent = preamble + this.value;
+  }else{
+    colorTextOutput.textContent = this.value;
+  }
 }
