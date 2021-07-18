@@ -2,12 +2,12 @@ const myInput = document.getElementById("input");
 const myButton = document.getElementById("submit");
 const colorTextOutput = document.getElementById("pOut");
 const testColor = document.getElementById("test");
-const myRadio = document.getElementById('preamble')
+const broadcast = document.getElementById('preamble')
 const autoUpdate = document.getElementById('autoUp')
 const myTitle = document.getElementById('lotjTitle')
 myInput.addEventListener("keyup", inEcho);
 myButton.addEventListener("click", inReplace);
-myRadio.addEventListener("click", inReplace);
+broadcast.addEventListener("click", inReplace);
 autoUpdate.addEventListener("click", autoUpdateColor);
 
 
@@ -46,7 +46,7 @@ function inReplace() {
 }
 
 function inEcho(e) {
-  if(myRadio.checked){
+  if(broadcast.checked){
   colorTextOutput.textContent = preamble + this.value;
   }else{
     colorTextOutput.textContent = this.value;
