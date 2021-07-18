@@ -10,27 +10,31 @@ myButton.addEventListener("click", inReplace);
 myRadio.addEventListener("click", inReplace);
 autoUpdate.addEventListener("click", autoUpdateColor);
 
-let intervalId;
-
-function autoUpdateColor(){
-  clearInterval(intervalId)
-  if(autoUpdate.checked){
-    intervalId = setInterval(inReplace, 20) //--kind of buggy, needs work
-}
-}
 
 const preamble =
   "&YB&Oro&zad&Wc&wa&zst&Oin&Yg N&Oe&zt&ww&zo&Or&Yk [&wCorellia&R(&zPrivate Signal&R)&Y]&z:&w";
 
+let intervalId;
+let titleintervalId;
 
-function inReplace() {
+function autoUpdateColor(){
+  clearInterval(intervalId)
+  clearInterval(titleintervalId)
+  if(autoUpdate.checked){
+    intervalId = setInterval(inReplace, 20) //--kind of buggy, needs work
+    titleintervalId = setInterval(colorTitle, 500)
+}
+}
+
+function colorTitle(){
   let randR = Math.floor(Math.random() * 257)
   let randG = Math.floor(Math.random() * 257)
   let randB = Math.floor(Math.random() * 257)
   let randTitle = `rgb(${randR}, ${randG}, ${randB})`
   myTitle.style.color = randTitle
+}
 
-  
+function inReplace() {
   Object.entries(colors).forEach(([k, v]) => {
     let colorRegex = `${[k]}`;
     let regex = new RegExp(colorRegex, "g");
