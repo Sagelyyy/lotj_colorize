@@ -284,11 +284,20 @@ const myButton = document.getElementById("submit");
 const colorTextOutput = document.getElementById("pOut");
 const testColor = document.getElementById("test");
 const myRadio = document.getElementById('preamble')
+const autoUpdate = document.getElementById('autoUp')
 myInput.addEventListener("keyup", inEcho);
 myButton.addEventListener("click", inReplace);
 myRadio.addEventListener("click", inReplace);
+autoUpdate.addEventListener("click", autoUpdateColor);
 
-//setInterval(inReplace, 20) --kind of buggy, needs work
+function autoUpdateColor(){
+  let intervalId;
+  if(autoUpdate.checked){
+    intervalId = setInterval(inReplace, 20) //--kind of buggy, needs work
+  }else{
+    clearInterval(intervalId)
+  }
+}
 
 const preamble =
   "&YB&Oro&zad&Wc&wa&zst&Oin&Yg N&Oe&zt&ww&zo&Or&Yk [&wCorellia&R(&zPrivate Signal&R)&Y]&z:&w";
