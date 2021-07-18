@@ -304,15 +304,6 @@ function colorTest(){
 }
 
 function inReplace() {
-  for(i = 0; i < color_range.length; i++){
-      let allRegex = `${color_range[i]}`;
-      let fullColorRegex = new RegExp(allRegex, "g");
-        colorTextOutput.innerHTML = colorTextOutput.innerHTML.replace(
-      fullColorRegex,
-      `<span style="color:${color_range[i]}"</span>`
-    );
-  }
-
   Object.entries(colors).forEach(([k, v]) => {
     let colorRegex = `${[k]}`;
     let regex = new RegExp(colorRegex, "g");
